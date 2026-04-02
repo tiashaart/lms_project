@@ -42,11 +42,18 @@ Students can enroll in courses Track enrolled courses
 
 🔐 Security Features Protected routes Token authentication Role-based permissions
 
-🛠️ Tech Stack Backend Python 🐍 Django 🌐 Django REST Framework (DRF)
+🛠️ Tech Stack Backend 
+Python 🐍 
+Django 🌐 
+Django REST Framework (DRF)
 
-Frontend HTMl CSS JavaScript
+Frontend 
+HTMl 
+CSS 
+JavaScript
 
-Database SQLite (Development) PostgreSQL (Production Ready)
+Database SQLite (Development) 
+PostgreSQL (Production Ready)
 
 📂 Project Architecture
 
@@ -65,9 +72,10 @@ lms_project/
 ├── templates/
 ├── docs/
 └── db/
+
 ⚙️ Installation Guide 1️⃣ Clone Repository
 
-git clone https://github.com/your-username/lms-project.git
+git clone https://github.com/tiashaart/lms_project.git
 cd lms-project
 2️⃣ Backend Setup
 
