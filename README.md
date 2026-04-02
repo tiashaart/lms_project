@@ -185,14 +185,6 @@ Separation of frontend & backend
 
 ---
 
-# 🚀 Deployment (Future Plan)
-
-* Backend: Render / Railway / AWS
-* Frontend: Vercel / Netlify
-* Database: PostgreSQL Cloud
-
----
-
 # 📌 Future Improvements
 
 * 🔴 Live video classes integration
