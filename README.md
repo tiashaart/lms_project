@@ -109,7 +109,7 @@ lms_project/
 1️⃣ Clone Repository
 
 ```bash id="final002"
-git clone https://github.com/your-username/lms-project.git
+git clone https://github.com/tiashaart/lms_project.git
 cd lms-project
 ```
 
