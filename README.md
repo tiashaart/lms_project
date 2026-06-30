@@ -1,217 +1,174 @@
-🎓 Learning Management System (LMS)
+# Hope Academy Learning Management System (HALMS)
 
-🚀 A full-stack Learning Management System built using **Django (Backend)** and **React (Frontend)** that enables students and teachers to manage courses, lessons, and assignments efficiently.
+A production-ready Learning Management System backend built with **Django 5**, **Django REST Framework**, **PostgreSQL**, and **JWT Authentication**.
 
-🌐 Live Demo
+## Technology Stack
 
-👉 Frontend: 
-👉 Backend API: 
-👉 Admin Panel: /admin
+| Component | Technology |
+|-----------|------------|
+| Language | Python 3.12+ |
+| Framework | Django 5+ |
+| API | Django REST Framework |
+| Database | PostgreSQL |
+| Authentication | Simple JWT |
+| Filtering | Django Filters |
+| CORS | django-cors-headers |
+| Images/Files | Pillow |
+| API Docs | drf-spectacular (Swagger/OpenAPI) |
+| PDF Certificates | ReportLab |
 
-📸 Screenshots
+## Project Structure
 
-🏠 Dashboard
-
-
-
-📚 Courses Page
-
-
-
-🎥 Lesson View
-
-
- 📌 Project Overview
-
-This LMS platform provides a complete digital learning environment:
-
-👨‍🏫 Teachers can:
-Create courses
-Upload lessons
-Assign assignments
-Evaluate submissions
-
-👨‍🎓 Students can:
-Enroll in courses
-Watch lessons
-Submit assignments
-Track progress
-
-🚀 Key Features
-
-👤 Authentication System
-User registration (Student / Teacher)
-JWT-based login system
-Role-based access control
-
-📚 Course Management
-
-Create / update / delete courses (Teacher only)
-View all courses (Students)
-Course detail view with lessons
-
-🎥 Lesson System
-
-Video-based learning content
-Organized by course structure
-
-🎓 Enrollment System
-
-Students can enroll in courses
-Track enrolled courses
-
-📝 Assignment System
-Teacher creates assignments
-Student submissions
-Submission tracking
-
-🔐 Security Features
-Protected routes
-Token authentication
-Role-based permissions
-
-🛠️ Tech Stack
-Backend
-Python 🐍
-Django 🌐
-Django REST Framework (DRF)
-
-Frontend
-HTMl
-CSS
-JavaScript
-
-Database
-SQLite (Development)
-PostgreSQL (Production Ready)
-
-📂 Project Architecture
-
-```bash id="final001"
-lms_project/
+```
+halms/
+├── halms/              # Django project settings
+├── users/              # User management & RBAC
+├── courses/            # Course & enrollment management
+├── lessons/            # Modules & lesson content
+├── quizzes/            # Quizzes & auto-grading
+├── assignments/        # Assignments & submissions
+├── progress/           # Student progress tracking
+├── certificates/       # Certificate generation
+├── payments/           # Payment processing
+├── announcements/      # Announcements
+├── reports/            # Analytics & reports
+├── api/                # API routing & utilities
+├── docs/               # Documentation
 ├── manage.py
-├── apps/
-│   ├── users/
-│   ├── courses/
-│   ├── lessons/
-│   ├── enrollments/
-│   ├── assignments/
-│   └── submissions/
-├── core/
-├── media/
-├── static/
-├── templates/
-├── docs/
-└── db/
+├── requirements.txt
+└── .env.example
 ```
 
-⚙️ Installation Guide
-1️⃣ Clone Repository
+## Installation Guide
 
-```bash id="final002"
-git clone https://github.com/tiashaart/lms_project.git
+### Prerequisites
+
+- Python 3.12+
+- PostgreSQL 14+
+- pip / virtualenv
+
+### 1. Clone and Setup Environment
+
+```bash
+git clone <repository-url>
 cd lms-project
-```
-
-2️⃣ Backend Setup
-
-```bash id="final003"
 python -m venv venv
-source venv/bin/activate
-```
 
-```bash id="final004"
+# Windows
+venv\Scripts\activate
+
+# Linux/macOS
+source venv/bin/activate
+
 pip install -r requirements.txt
 ```
 
-```bash id="final005"
+### 2. Configure Environment
+
+```bash
+cp .env.example .env
+# Edit .env with your database credentials and secret key
+```
+
+### 3. Create PostgreSQL Database
+
+```sql
+CREATE DATABASE halms_db;
+CREATE USER halms_user WITH PASSWORD 'halms_password';
+ALTER ROLE halms_user SET client_encoding TO 'utf8';
+ALTER ROLE halms_user SET default_transaction_isolation TO 'read committed';
+ALTER ROLE halms_user SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE halms_db TO halms_user;
+```
+
+### 4. Run Migrations
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
+```
+
+### 5. Create Superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+### 6. Run Development Server
+
+```bash
 python manage.py runserver
 ```
 
+### 7. Access API Documentation
 
-3️⃣ Frontend Setup
+- **Swagger UI:** http://localhost:8000/api/docs/
+- **ReDoc:** http://localhost:8000/api/redoc/
+- **OpenAPI Schema:** http://localhost:8000/api/schema/
+- **Admin Panel:** http://localhost:8000/admin/
 
-```bash id="final006"
-cd frontend
-npm install
-npm start
+## API Endpoints
+
+### Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/auth/register/` | Register new user |
+| POST | `/api/v1/auth/login/` | Login (JWT tokens) |
+| POST | `/api/v1/auth/logout/` | Logout (blacklist token) |
+| POST | `/api/v1/auth/token/refresh/` | Refresh access token |
+| POST | `/api/v1/auth/password-reset/` | Request password reset |
+| POST | `/api/v1/auth/password-reset/confirm/` | Confirm password reset |
+
+### Core Resources
+
+| Resource | Base URL |
+|----------|----------|
+| Users | `/api/v1/users/` |
+| Categories | `/api/v1/categories/` |
+| Courses | `/api/v1/courses/` |
+| Enrollments | `/api/v1/enrollments/` |
+| Modules | `/api/v1/modules/` |
+| Lessons | `/api/v1/lessons/` |
+| Quizzes | `/api/v1/quizzes/` |
+| Quiz Attempts | `/api/v1/quiz-attempts/` |
+| Assignments | `/api/v1/assignments/` |
+| Submissions | `/api/v1/submissions/` |
+| Progress | `/api/v1/progress/` |
+| Certificates | `/api/v1/certificates/` |
+| Payments | `/api/v1/payments/` |
+| Announcements | `/api/v1/announcements/` |
+| Reports | `/api/v1/reports/` |
+
+### Authentication Header
+
+```
+Authorization: Bearer <access_token>
 ```
 
-🔐 API Endpoints
+## User Roles (RBAC)
 
-| Method | Endpoint           | Description       |
-| ------ | ------------------ | ----------------- |
-| POST   | /api/register/     | User registration |
-| POST   | /api/login/        | Login             |
-| GET    | /api/courses/      | List courses      |
-| POST   | /api/courses/      | Create course     |
-| GET    | /api/courses/{id}/ | Course details    |
-| POST   | /api/enroll/       | Enroll in course  |
-| POST   | /api/assignments/  | Create assignment |
+| Role | Permissions |
+|------|-------------|
+| **Student** | Enroll, view courses, submit assignments, take quizzes |
+| **Instructor** | Create/manage courses, grade submissions, view reports |
+| **Administrator** | Full system access, user management, payments, reports |
 
+## Running Tests
 
-👥 Team Members
+```bash
+python manage.py test
+```
 
-| Role                                   | Member    |
-| -------------------------------------- | --------- |
-| 👑 Database                             | Member 1 |
-| ⚙️ Backend Developer                   | Member 2  |
-| 🎨 Frontend Developer                  | Member 3  |
+## Production Deployment Notes
 
- 📊 Project Status
+1. Set `DEBUG=False` in `.env`
+2. Generate a strong `SECRET_KEY`
+3. Configure proper `ALLOWED_HOSTS` and `CORS_ALLOWED_ORIGINS`
+4. Use a production WSGI server (Gunicorn/uWSGI)
+5. Serve static/media files via Nginx or cloud storage
+6. Enable HTTPS and secure cookie settings
 
-🟢 Active Development
-🟡 Testing Phase
-🔵 Completed (update when finished)
+## License
 
-🧠 System Design Highlights
-
-Modular Django apps architecture
-RESTful API design
-Role-based authentication system
-Scalable and clean folder structure
-Separation of frontend & backend
-
----
-
-# 🧪 Testing Strategy
-
-* Unit testing (backend APIs)
-* Manual UI testing
-* Postman API testing
-* Integration testing (frontend + backend)
-
----
-
-# 📌 Future Improvements
-
-* 🔴 Live video classes integration
-* 🔔 Notification system
-* 📱 Mobile app (React Native)
-* 📊 Analytics dashboard
-* 💬 Chat system between students & teachers
-
----
-
-# 📄 License
-
-This project is developed for **educational purposes only**.
-
----
-
-# ⭐ Acknowledgements
-
-Thanks to mentors, teammates, and open-source tools that supported this project.
-
----
-
-# 🏁 Final Note
-
-This project demonstrates:
-
-* Real-world full-stack development
-* Team collaboration workflow
-* Scalable backend architecture
-* Production-ready design thinking
+Academic project — Hope Academy Learning Management System.
