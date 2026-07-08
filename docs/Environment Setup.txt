@@ -1,0 +1,45 @@
+# Environment Setup for Learning Management System (LMS)
+
+# Database Engine
+DB_ENGINE=PostgreSQL
+DB_VERSION=15
+
+# Connection Settings
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=lmsproject@3044
+DB_HOST=db.gglhnpdjdqevrwaghfvj.supabase.co
+DB_PORT=5432
+
+
+# Schema Initialization
+# Run schema.sql to create tables and relationships
+INIT_SCHEMA_FILE=schema.sql
+
+# Row-Level Security Policies
+# Run rls_policies.sql to enable RLS and define policies
+RLS_POLICY_FILE=rls_policies.sql
+
+# Triggers
+# Run triggers.sql to set up automatic updates for progress tracking
+TRIGGER_FILE=triggers.sql
+
+# Environment Variables for RLS
+# These must be set per session/user login
+# Example:
+#   SET app.current_role = 'student';
+#   SET app.current_student_id = 'uuid-of-student';
+#   SET app.current_instructor_id = 'uuid-of-instructor';
+
+# Backup & Restore
+BACKUP_DIR=/var/backups/lms
+RESTORE_FILE=/var/backups/lms/latest.dump
+
+# Logging
+LOG_LEVEL=INFO
+LOG_FILE=/var/log/lms_db.log
+
+# Notes
+# - Ensure pgcrypto extension is enabled for UUID generation if needed
+# - Ensure SSL is configured for production environments
+# - Apply migrations in order: schema.sql -> rls_policies.sql -> triggers.sql

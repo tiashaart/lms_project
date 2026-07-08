@@ -1,0 +1,42 @@
+user.id -> student_profile.user_id
+user.id -> instructor_profile.user_id
+user.id -> administrator_profile.user_id
+user.id -> announcement.author_id
+
+student_profile.id -> enrollment.student_id
+student_profile.id -> quiz_attempt.student_id
+student_profile.id -> quiz_answer.attempt_id (via quiz_attempt)
+student_profile.id -> assignment_submission.student_id
+student_profile.id -> student_progress.student_id
+
+instructor_profile.id -> course.instructor_id
+instructor_profile.id -> assignment_submission.graded_by
+
+administrator_profile.id -> (no direct FK, used for access control)
+
+category.id -> course.category_id
+
+course.id -> module.course_id
+course.id -> assignment.course_id
+course.id -> quiz.course_id
+course.id -> announcement.course_id
+course.id -> enrollment.course_id
+course.id -> student_progress.course_id
+
+module.id -> lesson.module_id
+module.id -> assignment.module_id
+module.id -> quiz.module_id
+
+lesson.id -> (no outbound FK, belongs to module)
+
+assignment.id -> assignment_submission.assignment_id
+
+quiz.id -> question.quiz_id
+quiz.id -> quiz_attempt.quiz_id
+
+question.id -> choice.question_id
+question.id -> quiz_answer.question_id
+
+choice.id -> quiz_answer.choice_id
+
+quiz_attempt.id -> quiz_answer.attempt_id
