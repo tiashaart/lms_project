@@ -20,7 +20,7 @@ A production-ready Learning Management System backend built with **Django 5**, *
 ## Project Structure
 
 ```
-halms/
+lms_project/
 ├── halms/              # Django project settings
 ├── users/              # User management & RBAC
 ├── courses/            # Course & enrollment management
