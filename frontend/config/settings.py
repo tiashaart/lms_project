@@ -6,7 +6,11 @@ SECRET_KEY = 'django-insecure-hope-academy-lms-demo-key-change-in-production'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    "lms-project-npbr.vercel.app",
+    "localhost",
+    "127.0.0.1",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
