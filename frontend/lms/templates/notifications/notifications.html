@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Notifications | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="widget-card">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="section-title mb-0">Notifications</h2>
+    {% if unread_count %}<span class="badge badge-accent">{{ unread_count }} unread</span>{% endif %}
+  </div>
+  <div class="list-group">
+    {% for notification in notifications %}
+    <a href="{% url 'core:notification_detail' notification.id %}" class="list-group-item list-group-item-action notification-item {% if not notification.read %}unread{% endif %}" data-id="{{ notification.id }}">
+      <div class="d-flex justify-content-between">
+        <strong>{{ notification.title }}</strong>
+        <span class="text-muted small">{{ notification.created_at|timesince }} ago</span>
+      </div>
+      <p class="mb-0 text-muted">{{ notification.message|truncatewords:20 }}</p>
+    </a>
+    {% empty %}
+    {% include 'components/empty_state.html' with icon='bell' title='No notifications' %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

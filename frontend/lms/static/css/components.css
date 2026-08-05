@@ -1,0 +1,26 @@
+.navbar-brand img { height: 38px; }
+.list-group-item { border-radius: 10px; margin-bottom: 8px; }
+.table-card { overflow: hidden; }
+.user-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag-list .badge { padding: 7px 10px; }
+.modal-content { border: 0; border-radius: var(--radius); }
+.pagination .page-link { border-radius: 10px; margin: 0 3px; }
+
+/* Empty state */
+.empty-state { padding: 48px 24px; }
+
+/* Announcement cards */
+.announcement-card { transition: transform .2s ease; }
+.announcement-card:hover { transform: translateY(-2px); }
+
+/* Notification items */
+.notification-item.unread { border-left: 3px solid var(--accent); background: rgba(245,158,11,.05); }
+
+/* Activity list */
+.activity-list { display: grid; gap: 16px; }
+.activity-item { display: flex; gap: 12px; align-items: flex-start; }
+.activity-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); margin-top: 6px; flex-shrink: 0; }
+
+/* Filter bar */
+.filter-bar { background: var(--surface); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); }

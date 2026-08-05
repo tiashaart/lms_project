@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{{ module.title }} | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'core:course_detail' module.course_id %}">{{ module.course_title }}</a></li>
+      <li class="breadcrumb-item active">{{ module.title }}</li>
+    </ol>
+  </nav>
+  <h2 class="section-title">{{ module.title }}</h2>
+  <p class="text-muted">{{ module.description }}</p>
+</div>
+<div class="widget-card">
+  <h4 class="mb-3">Lessons</h4>
+  <div class="list-group lesson-list">
+    {% for lesson in module.lessons %}
+    <a href="{% url 'core:lesson_view' lesson.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        {% if lesson.completed %}
+        <i class="fa-solid fa-circle-check text-success"></i>
+        {% else %}
+        <i class="fa-regular fa-circle text-muted"></i>
+        {% endif %}
+        <div>
+          <strong>{{ lesson.title }}</strong>
+          <small class="text-muted d-block">{{ lesson.duration }}</small>
+        </div>
+      </div>
+      <i class="fa-solid fa-chevron-right text-muted"></i>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

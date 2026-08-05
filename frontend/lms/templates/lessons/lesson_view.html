@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}{{ lesson.title }} | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'core:course_detail' lesson.course_id %}">{{ lesson.course_title }}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'core:module_view' lesson.module_id %}">{{ lesson.module_title }}</a></li>
+      <li class="breadcrumb-item active">{{ lesson.title }}</li>
+    </ol>
+  </nav>
+  <h2 class="section-title">{{ lesson.title }}</h2>
+  <p class="text-muted">{{ lesson.description }}</p>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="widget-card mb-4">
+      <div class="ratio ratio-16x9 rounded-4 overflow-hidden">
+        <iframe src="{{ lesson.video_url }}" title="{{ lesson.title }}" allowfullscreen></iframe>
+      </div>
+    </div>
+    {% if lesson.materials %}
+    <div class="widget-card">
+      <h4 class="mb-3">Materials & Downloads</h4>
+      <div class="list-group">
+        {% for material in lesson.materials %}
+        <a href="{{ material.url }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3">
+          <i class="fa-solid fa-{% if material.type == 'pdf' %}file-pdf{% else %}file-lines{% endif %} text-primary"></i>
+          {{ material.name }}
+          <i class="fa-solid fa-download ms-auto text-muted"></i>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="col-lg-4">
+    <div class="widget-card sticky-top" style="top:100px">
+      <p class="text-muted mb-2"><i class="fa-solid fa-clock me-1"></i> {{ lesson.duration }}</p>
+      {% if lesson.completed %}
+      <span class="badge bg-success mb-3"><i class="fa-solid fa-check me-1"></i> Completed</span>
+      {% else %}
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary w-100 mb-3">Mark as Complete</button>
+      </form>
+      {% endif %}
+      <div class="d-flex gap-2">
+        {% if lesson.prev_lesson %}
+        <a href="{% url 'core:lesson_view' lesson.prev_lesson %}" class="btn btn-outline-secondary flex-fill"><i class="fa-solid fa-arrow-left"></i> Previous</a>
+        {% endif %}
+        {% if lesson.next_lesson %}
+        <a href="{% url 'core:lesson_view' lesson.next_lesson %}" class="btn btn-outline-primary flex-fill">Next <i class="fa-solid fa-arrow-right"></i></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

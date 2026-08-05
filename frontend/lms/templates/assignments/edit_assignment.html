@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Edit Assignment | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="widget-card">
+      <h3 class="section-title mb-4">Edit Assignment</h3>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="title">Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{ assignment.title }}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="course">Course</label>
+          <select class="form-select" id="course" name="course_id" required>
+            {% for course in courses %}
+            <option value="{{ course.id }}" {% if course.id == assignment.course_id %}selected{% endif %}>{{ course.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="3" required>{{ assignment.description }}</textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="instructions">Instructions</label>
+          <textarea class="form-control" id="instructions" name="instructions" rows="4" required>{{ assignment.instructions }}</textarea>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label class="form-label" for="due_date">Due Date</label>
+            <input type="date" class="form-control" id="due_date" name="due_date" value="{{ assignment.due_date|date:'Y-m-d' }}" required />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="points">Points</label>
+            <input type="number" class="form-control" id="points" name="points" value="{{ assignment.points }}" min="1" required />
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a href="{% url 'core:assignment_list' %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

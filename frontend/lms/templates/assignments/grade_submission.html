@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Grade Submission | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="widget-card">
+      <h3 class="section-title mb-4">Grade Submission</h3>
+      {% if submission %}
+      <p class="text-muted mb-3">Grading submission from <strong>{{ submission.student_name }}</strong> for <strong>{{ assignment.title }}</strong></p>
+      <div class="widget-card bg-light mb-4">
+        <p>{{ submission.content }}</p>
+      </div>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label class="form-label" for="grade">Score (out of {{ assignment.points }})</label>
+            <input type="number" class="form-control" id="grade" name="grade" min="0" max="{{ assignment.points }}" required />
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="feedback">Feedback</label>
+          <textarea class="form-control" id="feedback" name="feedback" rows="4" required placeholder="Provide constructive feedback..."></textarea>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Submit Grade</button>
+          <a href="{% url 'core:view_submission' assignment.id %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+      </form>
+      {% else %}
+      {% include 'components/empty_state.html' with icon='file' title='No submission to grade' %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

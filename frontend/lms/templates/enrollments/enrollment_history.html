@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Enrollment History | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <h2 class="section-title mb-1">Enrollment History</h2>
+  <p class="text-muted mb-0">View all your past and current enrollments.</p>
+</div>
+<div class="widget-card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr><th>Course</th><th>Enrolled Date</th><th>Status</th><th>Progress</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for enrollment in enrollments %}
+        <tr>
+          <td>{{ enrollment.course_title }}</td>
+          <td>{{ enrollment.enrolled_date|date:"M d, Y" }}</td>
+          <td>
+            {% if enrollment.status == 'active' %}<span class="badge badge-primary">Active</span>
+            {% elif enrollment.status == 'completed' %}<span class="badge bg-success">Completed</span>
+            {% else %}<span class="badge bg-secondary">Dropped</span>{% endif %}
+          </td>
+          <td>{{ enrollment.progress }}%</td>
+          <td>
+            {% if enrollment.status == 'active' %}
+            <a href="{% url 'core:course_detail' enrollment.course_id %}" class="btn btn-sm btn-outline-primary">Continue</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No enrollment history.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Progress | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <h2 class="section-title mb-1">Learning Progress</h2>
+  <p class="text-muted mb-0">Track your course completion and performance.</p>
+</div>
+
+<div class="dashboard-grid">
+  <section class="widget-card large">
+    <h4 class="mb-3">Overall Progress</h4>
+    <div style="height:280px"><canvas id="progressChart"></canvas></div>
+  </section>
+
+  <section class="widget-card full-width">
+    <h4 class="mb-3">Course Progress</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead><tr><th>Course</th><th>Category</th><th>Progress</th><th>Status</th></tr></thead>
+        <tbody>
+          {% for course in enrolled_courses %}
+          <tr>
+            <td><a href="{% url 'core:course_detail' course.id %}">{{ course.title }}</a></td>
+            <td>{{ course.category }}</td>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="progress flex-grow-1" style="height:6px"><div class="progress-bar" style="width:{{ course.progress }}%"></div></div>
+                <span class="small">{{ course.progress }}%</span>
+              </div>
+            </td>
+            <td>
+              {% if course.progress >= 100 %}<span class="badge bg-success">Completed</span>
+              {% elif course.progress > 0 %}<span class="badge badge-primary">In Progress</span>
+              {% else %}<span class="badge bg-secondary">Not Started</span>{% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4" class="text-center text-muted">No courses enrolled.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% load static %}
+<div class="col-md-6 col-lg-4">
+  <div class="card course-card h-100">
+    <img src="{% static course.image %}" class="card-img-top" alt="{{ course.title }}" />
+    <div class="card-body d-flex flex-column">
+      <div class="d-flex justify-content-between mb-2">
+        <span class="badge badge-primary">{{ course.category }}</span>
+        <span class="badge badge-accent">{{ course.duration }}</span>
+      </div>
+      <h5 class="card-title">{{ course.title }}</h5>
+      <p class="text-muted small flex-grow-1">{{ course.description|truncatewords:15 }}</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="text-muted small">By {{ course.instructor }}</span>
+        {% if course.enrolled %}
+        <span class="badge badge-primary">{{ course.progress }}%</span>
+        {% else %}
+        <a href="{% url 'core:course_detail' course.id %}" class="btn btn-sm btn-primary">Enroll</a>
+        {% endif %}
+      </div>
+      {% if course.enrolled %}
+      <div class="progress mt-2" style="height:6px">
+        <div class="progress-bar" style="width:{{ course.progress }}%"></div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

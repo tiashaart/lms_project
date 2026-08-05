@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Quiz Result | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="widget-card text-center">
+      <h2 class="section-title">{{ quiz.title }}</h2>
+      <div class="result-score mt-4 mb-3">
+        <div class="score-circle large">{{ score }}<small>%</small></div>
+      </div>
+      {% if passed %}
+      <span class="badge bg-success mb-3"><i class="fa-solid fa-check me-1"></i> Passed</span>
+      {% else %}
+      <span class="badge bg-danger mb-3"><i class="fa-solid fa-xmark me-1"></i> Not Passed</span>
+      {% endif %}
+      <p class="text-muted">You answered {{ correct_answers }} out of {{ total_questions }} questions correctly.</p>
+      <p class="text-muted">Passing score: {{ quiz.passing_score }}%</p>
+      <div class="d-flex gap-2 justify-content-center mt-4">
+        <a href="{% url 'core:quiz_list' %}" class="btn btn-outline-primary">Back to Quizzes</a>
+        <a href="{% url 'core:quiz_attempt' quiz.id %}" class="btn btn-primary">Retake Quiz</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

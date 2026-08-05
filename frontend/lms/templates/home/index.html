@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Hope Academy | Learn with Confidence{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <h1 class="hero-title">Learn modern skills with Hope Academy</h1>
+        <p class="lead text-muted">Build practical knowledge through expertly curated courses, guided lessons, and hands-on assessments in one streamlined LMS.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="{% url 'core:register' %}" class="btn btn-primary btn-lg">Start Learning</a>
+          <a href="{% url 'core:course_list' %}" class="btn btn-outline-primary btn-lg">Explore Courses</a>
+        </div>
+        <div class="mt-4 d-flex flex-wrap gap-4 text-muted">
+          <span><i class="fa-solid fa-check text-success"></i> {{ stats.courses }}+ Courses</span>
+          <span><i class="fa-solid fa-check text-success"></i> Expert Mentors</span>
+          <span><i class="fa-solid fa-check text-success"></i> Certificate Support</span>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card p-4">
+          <img src="{% static 'images/hero-students.svg' %}" alt="Students learning online" class="rounded-4" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 stats-section">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3"><div class="stat-counter"><div class="value">{{ stats.courses }}+</div><p class="text-muted">Courses</p></div></div>
+      <div class="col-6 col-md-3"><div class="stat-counter"><div class="value">{{ stats.students|floatformat:0 }}+</div><p class="text-muted">Students</p></div></div>
+      <div class="col-6 col-md-3"><div class="stat-counter"><div class="value">{{ stats.instructors }}+</div><p class="text-muted">Instructors</p></div></div>
+      <div class="col-6 col-md-3"><div class="stat-counter"><div class="value">{{ stats.certificates|floatformat:0 }}+</div><p class="text-muted">Certificates</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="section-title">Featured Courses</h2>
+      <p class="text-muted">High-impact programs designed for growth and practical outcomes.</p>
+    </div>
+    <div class="row g-4">
+      {% for course in featured_courses %}
+      {% include 'components/course_card.html' %}
+      {% empty %}
+      <div class="col-12 text-center text-muted">Course catalog will appear here.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <h2 class="section-title">About Hope Academy</h2>
+        <p class="text-muted">Hope Academy is a modern learning platform dedicated to helping students build practical, job-ready skills. Our mission is to make quality education accessible, engaging, and measurable.</p>
+        <p class="text-muted">From interactive lessons to real-world assignments and verified certificates, every feature is designed to support your growth.</p>
+      </div>
+      <div class="col-lg-6">
+        <img src="{% static 'images/about-academy.svg' %}" alt="About Hope Academy" class="rounded-4" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Why students choose Hope Academy</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="benefit-card card p-4 h-100 text-center"><i class="fa-solid fa-route fa-2x text-primary mb-3"></i><h5>Structured Paths</h5><p class="text-muted small">Clear learning paths with milestones and progress tracking.</p></div></div>
+      <div class="col-md-4"><div class="benefit-card card p-4 h-100 text-center"><i class="fa-solid fa-comments fa-2x text-primary mb-3"></i><h5>Expert Feedback</h5><p class="text-muted small">Instructor reviews on assignments and personalized guidance.</p></div></div>
+      <div class="col-md-4"><div class="benefit-card card p-4 h-100 text-center"><i class="fa-solid fa-mobile-screen fa-2x text-primary mb-3"></i><h5>Learn Anywhere</h5><p class="text-muted small">Mobile-friendly experience for studying on any device.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Meet Our Instructors</h2>
+      <p class="text-muted">Learn from industry professionals with real-world experience.</p>
+    </div>
+    <div class="row g-4">
+      {% for instructor in instructors %}
+      <div class="col-md-4">
+        <div class="card instructor-card text-center p-4 h-100">
+          <img src="{% static instructor.avatar %}" alt="{{ instructor.name }}" class="instructor-avatar mx-auto mb-3" />
+          <h5>{{ instructor.name }}</h5>
+          <p class="text-muted small">{{ instructor.title }}</p>
+          <div class="d-flex justify-content-center gap-3 text-muted small">
+            <span>{{ instructor.courses }} courses</span>
+            <span>{{ instructor.students }} students</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5 testimonials-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">What Our Learners Say</h2>
+    </div>
+    <div class="row g-4">
+      {% for testimonial in testimonials %}
+      <div class="col-md-4">
+        <div class="card testimonial-card p-4 h-100">
+          <div class="text-warning mb-2">{% for i in "12345" %}<i class="fa-solid fa-star{% if forloop.counter > testimonial.rating %}-o{% endif %}"></i>{% endfor %}</div>
+          <p class="text-muted">"{{ testimonial.text }}"</p>
+          <strong>{{ testimonial.name }}</strong>
+          <small class="text-muted d-block">{{ testimonial.role }}</small>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-5 cta-section">
+  <div class="container">
+    <div class="cta-banner text-center p-5 rounded-4">
+      <h2 class="section-title text-white mb-3">Ready to start your learning journey?</h2>
+      <p class="text-white-50 mb-4">Join thousands of learners building skills for tomorrow.</p>
+      <a href="{% url 'core:register' %}" class="btn btn-light btn-lg me-2">Create Free Account</a>
+      <a href="{% url 'core:course_list' %}" class="btn btn-outline-light btn-lg">Browse Courses</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

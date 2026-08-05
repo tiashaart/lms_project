@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Submit {{ assignment.title }} | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="widget-card">
+      <h3 class="section-title mb-1">Submit Assignment</h3>
+      <p class="text-muted mb-4">{{ assignment.title }} &mdash; Due {{ assignment.due_date|date:"M d, Y" }}</p>
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="content">Your Response</label>
+          <textarea class="form-control" id="content" name="content" rows="6" required placeholder="Write your submission here..."></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="file">Attach File (optional)</label>
+          <input type="file" class="form-control file-upload" id="file" name="file" />
+          <small class="text-muted">Max file size: 10MB</small>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="{% url 'core:assignment_detail' assignment.id %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

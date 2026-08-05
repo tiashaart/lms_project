@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Certificate - {{ certificate.title }} | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="certificate-document widget-card" id="certificatePrint">
+      <div class="certificate-border text-center p-5">
+        <img src="{% static 'icons/logo.svg' %}" alt="Hope Academy" class="certificate-logo mb-4" />
+        <p class="text-uppercase text-muted letter-spacing">Certificate of Completion</p>
+        <h2 class="certificate-name my-4">{{ certificate.student_name }}</h2>
+        <p class="text-muted">has successfully completed</p>
+        <h3 class="certificate-course my-3">{{ certificate.title }}</h3>
+        <p class="text-muted mt-4">Issued on {{ certificate.issued_date|date:"F d, Y" }}</p>
+        <p class="text-muted small">Credential ID: {{ certificate.credential_id }}</p>
+        <div class="certificate-seal mt-4"><i class="fa-solid fa-award fa-2x text-primary"></i></div>
+      </div>
+    </div>
+    <div class="text-center mt-4 d-flex gap-2 justify-content-center">
+      <button type="button" class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-download me-1"></i> Download / Print</button>
+      <a href="{% url 'core:certificate_list' %}" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

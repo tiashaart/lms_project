@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="dashboard-grid">
+  <section class="widget-card welcome-card">
+    <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+      <div>
+        <p class="text-muted mb-1">Welcome back</p>
+        <h3 class="section-title mb-2">Keep going, {{ user.first_name }}</h3>
+        <p class="text-muted">You are {{ progress_chart.data|last }}% through your current learning path. Continue your next lesson to stay on track.</p>
+      </div>
+      <a href="{% url 'core:my_courses' %}" class="btn btn-primary">Continue Learning</a>
+    </div>
+  </section>
+
+  <div class="stats-row">
+    <div class="stat-item"><p class="text-muted mb-1">Courses Enrolled</p><div class="value">{{ courses_enrolled }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Completed Courses</p><div class="value">{{ courses_completed }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Pending Assignments</p><div class="value">{{ pending_assignments }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Certificates Earned</p><div class="value">{{ certificates_earned }}</div></div>
+  </div>
+
+  <section class="widget-card large">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Learning Progress</h4>
+      <span class="badge badge-primary">Monthly</span>
+    </div>
+    <div style="height:280px"><canvas id="progressChart"></canvas></div>
+  </section>
+
+  <section class="widget-card">
+    <h4 class="mb-3">My Courses</h4>
+    <div class="list-group">
+      {% for course in enrolled_courses %}
+      <a href="{% url 'core:course_detail' course.id %}" class="list-group-item list-group-item-action">
+        {{ course.title }} <span class="float-end text-muted">{{ course.progress }}%</span>
+      </a>
+      {% empty %}
+      <p class="text-muted mb-0">No enrolled courses yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="widget-card">
+    <h4 class="mb-3">Assignments</h4>
+    <div class="list-group">
+      {% for assignment in assignments %}
+      <a href="{% url 'core:assignment_detail' assignment.id %}" class="list-group-item list-group-item-action">
+        {{ assignment.title }}
+        {% if assignment.status == 'pending' %}<span class="badge badge-accent ms-2">Due {{ assignment.due_date|date:"M d" }}</span>
+        {% elif assignment.status == 'submitted' %}<span class="badge badge-primary ms-2">In Review</span>
+        {% else %}<span class="badge bg-success ms-2">Graded</span>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="widget-card">
+    <h4 class="mb-3">Recent Activity</h4>
+    <div class="activity-list">
+      {% for item in recent_activity %}
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div>
+          <strong>{{ item.action }}</strong>
+          <p class="text-muted mb-0 small">{{ item.detail }}</p>
+          <small class="text-muted">{{ item.time }}</small>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

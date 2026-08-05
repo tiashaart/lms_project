@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Certificates | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <h2 class="section-title mb-1">My Certificates</h2>
+  <p class="text-muted mb-0">Certificates earned from completed courses.</p>
+</div>
+<div class="row g-4">
+  {% for cert in certificates %}
+  <div class="col-md-6 col-lg-4">
+    <div class="card certificate-card h-100">
+      <div class="card-body text-center p-4">
+        <i class="fa-solid fa-award fa-3x text-primary mb-3"></i>
+        <h5 class="card-title">{{ cert.title }}</h5>
+        <p class="text-muted small">Issued {{ cert.issued_date|date:"M d, Y" }}</p>
+        <p class="text-muted small">ID: {{ cert.credential_id }}</p>
+        <a href="{% url 'core:certificate_view' cert.id %}" class="btn btn-outline-primary btn-sm">View</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12">{% include 'components/empty_state.html' with icon='award' title='No certificates yet' message='Complete a course to earn your first certificate.' %}</div>
+  {% endfor %}
+</div>
+{% endblock %}

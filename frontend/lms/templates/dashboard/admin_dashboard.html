@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="dashboard-grid">
+  <section class="widget-card welcome-card">
+    <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+      <div>
+        <p class="text-muted mb-1">Admin Dashboard</p>
+        <h3 class="section-title mb-2">Platform Overview</h3>
+        <p class="text-muted">Monitor users, courses, enrollments, and system activity.</p>
+      </div>
+      <a href="{% url 'core:announcement_list' %}" class="btn btn-primary">Manage Announcements</a>
+    </div>
+  </section>
+
+  <div class="stats-row stats-row-6">
+    <div class="stat-item"><p class="text-muted mb-1">Total Users</p><div class="value">{{ total_users|floatformat:0 }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Students</p><div class="value">{{ total_students|floatformat:0 }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Instructors</p><div class="value">{{ total_instructors }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Courses</p><div class="value">{{ total_courses }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Enrollments</p><div class="value">{{ total_enrollments|floatformat:0 }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Revenue</p><div class="value">${{ revenue|floatformat:0 }}</div></div>
+  </div>
+
+  <section class="widget-card large">
+    <h4 class="mb-3">User Growth</h4>
+    <div style="height:280px"><canvas id="adminUserChart" data-chart="line"></canvas></div>
+  </section>
+
+  <section class="widget-card">
+    <h4 class="mb-3">Enrollment by Category</h4>
+    <div style="height:280px"><canvas id="adminEnrollmentChart" data-chart="doughnut"></canvas></div>
+  </section>
+
+  <section class="widget-card full-width">
+    <h4 class="mb-3">System Activity</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead><tr><th>User</th><th>Action</th><th>Target</th><th>Time</th></tr></thead>
+        <tbody>
+          {% for item in system_activity %}
+          <tr>
+            <td>{{ item.user }}</td>
+            <td>{{ item.action }}</td>
+            <td>{{ item.target }}</td>
+            <td class="text-muted">{{ item.time }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% load static %}
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="{% url 'core:home' %}" class="brand-link">
+      <img src="{% static 'icons/logo.svg' %}" alt="Hope Academy" class="brand-logo" />
+      <span>Hope Academy</span>
+    </a>
+    <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-menu">
+    <p class="menu-title">Main</p>
+    <a href="{% url 'core:dashboard' %}" class="menu-item"><i class="fa-solid fa-grid-2"></i><span>Dashboard</span></a>
+    <a href="{% url 'core:course_list' %}" class="menu-item"><i class="fa-solid fa-book-open"></i><span>Courses</span></a>
+    <a href="{% url 'core:my_courses' %}" class="menu-item"><i class="fa-solid fa-graduation-cap"></i><span>My Courses</span></a>
+    <a href="{% url 'core:assignment_list' %}" class="menu-item"><i class="fa-solid fa-file-lines"></i><span>Assignments</span></a>
+    <a href="{% url 'core:quiz_list' %}" class="menu-item"><i class="fa-solid fa-circle-question"></i><span>Quizzes</span></a>
+    <a href="{% url 'core:progress' %}" class="menu-item"><i class="fa-solid fa-chart-line"></i><span>Progress</span></a>
+    <a href="{% url 'core:certificate_list' %}" class="menu-item"><i class="fa-solid fa-award"></i><span>Certificates</span></a>
+
+    {% if user.role == 'instructor' or user.role == 'admin' %}
+    <p class="menu-title">Teaching</p>
+    <a href="{% url 'core:create_assignment' %}" class="menu-item"><i class="fa-solid fa-plus"></i><span>Create Assignment</span></a>
+    {% endif %}
+
+    {% if user.role == 'admin' %}
+    <p class="menu-title">Admin</p>
+    <a href="{% url 'core:dashboard' %}?role=admin" class="menu-item"><i class="fa-solid fa-shield"></i><span>Admin Dashboard</span></a>
+    <a href="{% url 'core:category_list' %}" class="menu-item"><i class="fa-solid fa-folder"></i><span>Categories</span></a>
+    {% endif %}
+
+    <p class="menu-title">Community</p>
+    <a href="{% url 'core:announcement_list' %}" class="menu-item"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+    <a href="{% url 'core:notification_list' %}" class="menu-item"><i class="fa-solid fa-bell"></i><span>Notifications</span></a>
+    <a href="{% url 'core:profile' %}" class="menu-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+
+    <p class="menu-title">Demo Roles</p>
+    <a href="?role=student" class="menu-item small"><i class="fa-solid fa-user-graduate"></i><span>Student View</span></a>
+    <a href="?role=instructor" class="menu-item small"><i class="fa-solid fa-chalkboard-user"></i><span>Instructor View</span></a>
+    <a href="?role=admin" class="menu-item small"><i class="fa-solid fa-shield"></i><span>Admin View</span></a>
+  </div>
+</aside>

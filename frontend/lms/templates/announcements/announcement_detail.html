@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{{ announcement.title }} | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="widget-card">
+      <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+        <span class="badge badge-primary">{{ announcement.category }}</span>
+        <small class="text-muted">{{ announcement.created_at|date:"F d, Y" }}</small>
+      </div>
+      <h2 class="section-title">{{ announcement.title }}</h2>
+      <p class="text-muted mb-4">By {{ announcement.author }}</p>
+      <div class="announcement-content">{{ announcement.content|linebreaks }}</div>
+      <a href="{% url 'core:announcement_list' %}" class="btn btn-outline-primary mt-4">Back to Announcements</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

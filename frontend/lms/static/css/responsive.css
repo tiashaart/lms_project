@@ -1,0 +1,33 @@
+@media (max-width: 1200px) {
+  .dashboard-grid { grid-template-columns: 1fr 1fr; }
+  .welcome-card, .stats-row, .widget-card, .widget-card.large { grid-column: span 2; }
+}
+
+@media (max-width: 900px) {
+  .sidebar { width: 220px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .search-box { min-width: 180px; }
+}
+
+@media (max-width: 768px) {
+  .page-shell { flex-direction: column; }
+  .sidebar {
+    position: fixed; left: -280px; top: 0; z-index: 1000; width: 270px; min-height: 100vh;
+    transition: left .3s ease; box-shadow: var(--shadow);
+  }
+  .sidebar.open { left: 0; }
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 999; }
+  .sidebar-overlay.show { display: block; }
+  .sidebar-toggle-mobile { border: 0; background: var(--bg); border-radius: 10px; padding: 8px 12px; margin-left: 12px; }
+  .top-navbar { flex-direction: row; flex-wrap: wrap; gap: 12px; }
+  .nav-actions { flex-wrap: wrap; }
+  .search-box { min-width: 100%; flex: 1 1 100%; }
+  .content-area { padding: 16px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .welcome-card, .stats-row, .widget-card, .widget-card.large, .stats-row-6, .widget-card.full-width { grid-column: span 1; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .quiz-header { position: sticky; top: 0; }
+  .auth-card { margin: 20px auto; padding: 24px; }
+  .hero-section { padding: 40px 0; }
+  .cta-banner { padding: 32px 20px !important; }
+}

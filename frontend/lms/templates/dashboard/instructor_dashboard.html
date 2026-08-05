@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Instructor Dashboard | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="dashboard-grid">
+  <section class="widget-card welcome-card">
+    <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+      <div>
+        <p class="text-muted mb-1">Instructor Dashboard</p>
+        <h3 class="section-title mb-2">Welcome, {{ user.first_name }}</h3>
+        <p class="text-muted">Manage your courses, review submissions, and track student performance.</p>
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <a href="{% url 'core:create_assignment' %}" class="btn btn-primary">Create Assignment</a>
+        <a href="{% url 'core:course_list' %}" class="btn btn-outline-primary">View Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-row">
+    <div class="stat-item"><p class="text-muted mb-1">Courses Created</p><div class="value">{{ courses_created }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Total Students</p><div class="value">{{ total_students }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Pending Reviews</p><div class="value">{{ pending_reviews }}</div></div>
+    <div class="stat-item"><p class="text-muted mb-1">Avg Rating</p><div class="value">{{ avg_rating }}</div></div>
+  </div>
+
+  <section class="widget-card large">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Course Performance</h4>
+      <span class="badge badge-primary">Completion Rate</span>
+    </div>
+    <div style="height:280px"><canvas id="instructorChart" data-chart="bar"></canvas></div>
+  </section>
+
+  <section class="widget-card">
+    <h4 class="mb-3">My Courses</h4>
+    <div class="list-group">
+      {% for course in courses %}
+      <a href="{% url 'core:course_detail' course.id %}" class="list-group-item list-group-item-action d-flex justify-content-between">
+        {{ course.title }} <span class="text-muted">{{ course.student_count }} students</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="widget-card">
+    <h4 class="mb-3">Recent Activity</h4>
+    <div class="activity-list">
+      {% for item in recent_activity %}
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div>
+          <strong>{{ item.action }}</strong>
+          <p class="text-muted mb-0 small">{{ item.detail }}</p>
+          <small class="text-muted">{{ item.time }}</small>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

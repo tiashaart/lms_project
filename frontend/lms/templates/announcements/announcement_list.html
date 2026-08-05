@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Announcements | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <h2 class="section-title mb-1">Announcements</h2>
+  <p class="text-muted mb-0">Stay updated with the latest news and updates.</p>
+</div>
+<div class="row g-4">
+  {% for announcement in announcements %}
+  <div class="col-md-6">
+    <a href="{% url 'core:announcement_detail' announcement.id %}" class="card announcement-card h-100 text-decoration-none">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-2">
+          <span class="badge badge-primary">{{ announcement.category }}</span>
+          <small class="text-muted">{{ announcement.created_at|date:"M d, Y" }}</small>
+        </div>
+        <h5 class="card-title text-dark">{{ announcement.title }}</h5>
+        <p class="text-muted small">{{ announcement.content|truncatewords:20 }}</p>
+        <small class="text-muted">By {{ announcement.author }}</small>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <div class="col-12">{% include 'components/empty_state.html' with icon='bullhorn' title='No announcements' %}</div>
+  {% endfor %}
+</div>
+{% endblock %}

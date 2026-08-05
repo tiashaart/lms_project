@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Register | Hope Academy{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+  <h2 class="section-title text-center">Create your account</h2>
+  <p class="text-muted text-center mb-4">Join Hope Academy and start learning today.</p>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label" for="full_name">Full Name</label>
+      <input type="text" class="form-control" id="full_name" name="full_name" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="username">Username</label>
+      <input type="text" class="form-control" id="username" name="username" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required />
+    </div>
+    <div class="mb-3 password-toggle">
+      <label class="form-label" for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" required minlength="8" />
+      <button type="button" class="toggle-btn" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+    </div>
+    <div class="mb-3 password-toggle">
+      <label class="form-label" for="confirm_password">Confirm Password</label>
+      <input type="password" class="form-control" id="confirm_password" name="confirm_password" required data-match="password" />
+      <button type="button" class="toggle-btn" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="role">Role</label>
+      <select class="form-select" id="role" name="role" required>
+        <option value="student">Student</option>
+        <option value="instructor">Instructor</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Create Account</button>
+  </form>
+  <p class="text-center mt-3">Already have an account? <a href="{% url 'core:login' %}">Sign in</a></p>
+</div>
+{% endblock %}
