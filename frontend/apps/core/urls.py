@@ -1,0 +1,46 @@
+from django.urls import path
+
+from . import views
+
+app_name = 'core'
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register_view, name='register'),
+    path('forgot-password/', views.forgot_password_view, name='forgot_password'),
+    path('reset-password/<str:token>/', views.reset_password_view, name='reset_password'),
+    path('change-password/', views.change_password_view, name='change_password'),
+    path('logout/', views.logout_view, name='logout'),
+    path('dashboard/', views.dashboard_view, name='dashboard'),
+    path('profile/', views.profile_view, name='profile'),
+    path('profile/edit/', views.profile_edit_view, name='profile_edit'),
+    path('courses/', views.course_list_view, name='course_list'),
+    path('courses/<int:course_id>/', views.course_detail_view, name='course_detail'),
+    path('categories/', views.category_list_view, name='category_list'),
+    path('categories/<slug:slug>/', views.category_detail_view, name='category_detail'),
+    path('my-courses/', views.my_courses_view, name='my_courses'),
+    path('enrollment-history/', views.enrollment_history_view, name='enrollment_history'),
+    path('modules/<int:module_id>/', views.module_view, name='module_view'),
+    path('lessons/<int:lesson_id>/', views.lesson_view, name='lesson_view'),
+    path('assignments/', views.assignment_list_view, name='assignment_list'),
+    path('assignments/create/', views.create_assignment_view, name='create_assignment'),
+    path('assignments/<int:assignment_id>/', views.assignment_detail_view, name='assignment_detail'),
+    path('assignments/<int:assignment_id>/submit/', views.submit_assignment_view, name='submit_assignment'),
+    path('assignments/<int:assignment_id>/feedback/', views.assignment_feedback_view, name='assignment_feedback'),
+    path('assignments/<int:assignment_id>/edit/', views.edit_assignment_view, name='edit_assignment'),
+    path('assignments/<int:assignment_id>/submissions/', views.view_submission_view, name='view_submission'),
+    path('assignments/<int:assignment_id>/grade/', views.grade_submission_view, name='grade_submission'),
+    path('quizzes/', views.quiz_list_view, name='quiz_list'),
+    path('quizzes/<int:quiz_id>/', views.quiz_detail_view, name='quiz_detail'),
+    path('quizzes/<int:quiz_id>/attempt/', views.quiz_attempt_view, name='quiz_attempt'),
+    path('quizzes/<int:quiz_id>/result/', views.quiz_result_view, name='quiz_result'),
+    path('progress/', views.progress_view, name='progress'),
+    path('certificates/', views.certificate_list_view, name='certificate_list'),
+    path('certificates/<int:cert_id>/', views.certificate_view, name='certificate_view'),
+    path('announcements/', views.announcement_list_view, name='announcement_list'),
+    path('announcements/<int:ann_id>/', views.announcement_detail_view, name='announcement_detail'),
+    path('notifications/', views.notification_list_view, name='notification_list'),
+    path('notifications/<int:notif_id>/', views.notification_detail_view, name='notification_detail'),
+    path('notifications/<int:notif_id>/read/', views.mark_notification_read, name='mark_notification_read'),
+]
